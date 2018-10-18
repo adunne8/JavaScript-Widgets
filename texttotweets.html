@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Text To Tweets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/modern.css" />
+</head>
+<body>
+    <div id="wrapper">
+        <h1>Twitter Tweet Splitter</h1>
+        <p class="minitext">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis, tortor eget porttitor ultricies, libero turpis molestie purus, at elementum erat neque eget lacus. Nulla laoreet ut est sit amet aliquet. Etiam efficitur velit sit amet nibh aliquet, sit amet efficitur felis maximus. Praesent eleifend molestie justo vel convallis. Integer tincidunt, arcu at iaculis tristique, erat nulla ullamcorper sem, eu finibus risus orci ut metus. Etiam velit est, commodo non sodales ut, molestie vitae lectus. Sed pharetra interdum tortor, sed ornare massa eleifend et. Vestibulum quis nisl eu turpis finibus fringilla. Fusce dignissim malesuada rutrum. Aliquam lacinia nibh sed scelerisque varius. Phasellus placerat mollis nunc, rhoncus dignissim dolor placerat et. Aenean magna nunc, vestibulum ut tincidunt eu, malesuada euismod leo. Phasellus lacinia venenatis magna malesuada rhoncus. Morbi sit amet odio porta, mollis sapien sed, sagittis nisi. Suspendisse eget condimentum orci.
+      
+      Nunc purus leo, pretium ac leo ac, ullamcorper pellentesque metus. Nunc rhoncus iaculis dui vitae facilisis. Ut blandit dictum erat. Cras laoreet ornare sollicitudin. Vivamus tempor dui enim, facilisis efficitur dolor iaculis et. Sed sit amet eros ante. Curabitur consequat at lectus non facilisis. Mauris a fermentum est, in suscipit tortor. Proin id justo auctor, maximus ante aliquam, lacinia odio. Nunc pretium ornare justo, a pretium leo dictum sit amet.
+      
+      Aliquam porta porta condimentum. Vivamus vel pharetra lorem, at bibendum erat. Integer facilisis magna erat, at fringilla augue ornare in. Proin ac tincidunt est. Praesent ut ullamcorper justo. Fusce suscipit mattis magna. Vivamus dictum diam sit amet leo suscipit, ullamcorper efficitur diam vehicula.
+      
+      Mauris a velit lacinia, luctus dui a, bibendum nibh. Sed posuere rhoncus ultrices. Donec tempor, ipsum quis sollicitudin interdum, enim felis dignissim neque, eget interdum purus lacus et urna. Nam tincidunt, eros eu viverra auctor, nisl mi commodo augue, eu auctor erat arcu vel arcu. Praesent volutpat aliquam metus. Duis lacinia lacinia lorem. Cras cursus vehicula dignissim. Mauris finibus urna in diam placerat imperdiet. Morbi maximus sit amet erat a porta. Vivamus fringilla, justo scelerisque malesuada aliquet, quam metus rhoncus turpis, sit amet fermentum massa risus ac felis. Integer lobortis iaculis mi, sed ultrices orci eleifend sagittis. Ut laoreet mattis ante, pharetra dapibus purus.
+      
+      Maecenas luctus est id odio vehicula, eu pulvinar diam porta. Donec ullamcorper libero ut rhoncus viverra. Donec suscipit vel sapien et suscipit. Cras fermentum enim nisl, vel ultrices nisl fermentum non. Mauris semper pulvinar nulla ut placerat. Phasellus nec velit gravida velit posuere viverra et id ligula. Sed aliquet, quam vitae volutpat fermentum, ex lectus malesuada ipsum, vel bibendum arcu urna at quam. Morbi et rhoncus nisl. Integer quis felis finibus, pretium lorem ut, ultricies augue. Suspendisse potenti. Proin fringilla, arcu ac sodales rhoncus, nisl ligula elementum leo, at tincidunt sem odio eu erat. Praesent a mi id nunc vulputate lobortis. Morbi mollis metus erat, at luctus felis lobortis quis.</p>
+        <textarea id="tweettextinput"></textarea>
+        <button id="buttongenerate">Generate tweet text</button>
+      </div>
+
+<script>
+const tweetLength   = 285;
+const textInput     = document.querySelector('#tweettextinput');
+const generateBtn   = document.querySelector('#buttongenerate');
+let   tweets        = [];
+
+function splitText(){
+    // GET VALUES
+    let     inputText     = textInput.value;  
+    const   inputLength   = inputText.length;
+    //const   minTweets     = Math.ceil(inputLength/tweetLength);
+
+    console.log(`Input Text: ${inputText}`)
+    console.log(`Input Length: ${inputLength}; Min Tweets: ${Math.ceil(inputLength/280)}`);
+
+    // GENERATION OF TWEETS - 
+    // **NEED TO CHANGE TO WHILE LOOP
+    while (inputText.length > 0){
+        // Get initial section
+        let tweet = inputText.substr(0, tweetLength);
+
+        // REFINE SELECTION, START OF THE REMAINING STRING
+        tweet = tweet.substr(0, Math.min(tweet.length, tweet.lastIndexOf(" ")));
+        console.log(tweet);
+        
+        inputText = inputText.slice(tweet.length);
+        console.log(inputText);
+
+    }
+
+}
+
+
+generateBtn.addEventListener('click', splitText);
+
+
+      </script>
+</body>
+</html>
