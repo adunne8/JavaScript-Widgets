@@ -6,6 +6,7 @@
     <title>Text To Tweets</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="css/modern.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/texttotweets.css" />
 </head>
 <body>
     <div id="wrapper">
@@ -21,35 +22,59 @@
       Maecenas luctus est id odio vehicula, eu pulvinar diam porta. Donec ullamcorper libero ut rhoncus viverra. Donec suscipit vel sapien et suscipit. Cras fermentum enim nisl, vel ultrices nisl fermentum non. Mauris semper pulvinar nulla ut placerat. Phasellus nec velit gravida velit posuere viverra et id ligula. Sed aliquet, quam vitae volutpat fermentum, ex lectus malesuada ipsum, vel bibendum arcu urna at quam. Morbi et rhoncus nisl. Integer quis felis finibus, pretium lorem ut, ultricies augue. Suspendisse potenti. Proin fringilla, arcu ac sodales rhoncus, nisl ligula elementum leo, at tincidunt sem odio eu erat. Praesent a mi id nunc vulputate lobortis. Morbi mollis metus erat, at luctus felis lobortis quis.</p>
         <textarea id="tweettextinput"></textarea>
         <button id="buttongenerate">Generate tweet text</button>
+
+        <div id="outputcontainer">
+
+
+        </div>
+
       </div>
 
 <script>
-const tweetLength   = 285;
+const tweetLength   = 280;
 const textInput     = document.querySelector('#tweettextinput');
 const generateBtn   = document.querySelector('#buttongenerate');
+const outputContainer = document.querySelector('#outputcontainer');
 let   tweets        = [];
 
 function splitText(){
     // GET VALUES
-    let     inputText     = textInput.value;  
-    const   inputLength   = inputText.length;
-    //const   minTweets     = Math.ceil(inputLength/tweetLength);
+    let     inputText   = textInput.value;  
+    const   inputLength = inputText.length;
+    const   minTweets   = Math.ceil(inputLength/tweetLength);
+    let     tweetCount       = 0;
+    // RESERVED SPACE: SPACE + CURRENT COUNT + / + MAX COUNT
+    // RESERVED SPACE: 1 + minTweets + 1 + minTweets
+    const   reservedSpace = (minTweets.toString().length * 2) + 2;
+    let     tweetBlock;
+
+
 
     console.log(`Input Text: ${inputText}`)
-    console.log(`Input Length: ${inputLength}; Min Tweets: ${Math.ceil(inputLength/280)}`);
+    console.log(`Input Length: ${inputLength}; Min Tweets: ${Math.ceil(inputLength/tweetLength)}`);
 
     // GENERATION OF TWEETS - 
     // **NEED TO CHANGE TO WHILE LOOP
     while (inputText.length > 0){
+        tweetCount++;
         // Get initial section
-        let tweet = inputText.substr(0, tweetLength);
+        let tweet = `${inputText.substr(0, tweetLength - reservedSpace)} ${tweetCount}/${minTweets}`;
 
         // REFINE SELECTION, START OF THE REMAINING STRING
-        tweet = tweet.substr(0, Math.min(tweet.length, tweet.lastIndexOf(" ")));
-        console.log(tweet);
+        // tweet = tweet.substr(0, Math.min(tweet.length, tweet.lastIndexOf(" ")));
+        
         
         inputText = inputText.slice(tweet.length);
-        console.log(inputText);
+        console.log(`Tweet: ${tweet}`);
+        console.log(`Input: ${inputText}`);
+        console.log(`Lengt: ${inputText.length}`);
+
+        tweetBlock = document.createElement('div');
+        tweetBlock.className = "tweetSection";
+        tweetBlock.innerHTML = `<p>${tweet}</p>`;
+
+        outputContainer.append(tweetBlock);
+
 
     }
 
@@ -59,6 +84,6 @@ function splitText(){
 generateBtn.addEventListener('click', splitText);
 
 
-      </script>
+</script>
 </body>
 </html>
